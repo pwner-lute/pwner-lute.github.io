@@ -21,7 +21,7 @@
 						<div class="content">
 							<div class="inner">
 								<h1>UNLIKE</h1>
-								<p>Mabinogi Lute 26ch. Dunbarton Library<br/>Goddess "서다솔" and her believers</p>
+								<p>Mabinogi Lute 26ch. <br />Dunbarton Library<br/>Goddess "서다솔" and her believers</p>
 							</div>
 						</div>
 						<nav>
@@ -80,7 +80,8 @@
 						<!-- About -->
 							<article id="member">
 								<h2 class="major">멤버</h2>
-								<span><p></p></span>
+								<div id="member_list">
+								</div><br/>
 							</article>
 
 						<!-- Contact -->
@@ -108,6 +109,35 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+				$(document).ready(()=>{
+					fetch("./data/members.json").then(res=>res.json()).then(res=>{
+						res.forEach(element => {
+							var div = $("<div/>")
+							var mark = $("<i/>")
+							mark.addClass("fas")
+							var sp = $("<span/>")
+							sp.text(`\t\t${element.name}`)
+							if(element.role == "G") {
+								mark.addClass("fa-chess-king")
+								mark.attr("title","Guld Master")
+							} else if (element.role == "SG") {
+								mark.addClass("fa-chess-rook")
+								mark.attr("title","Sub Guld Master")
+							} else if (element.role == "E") {
+								mark.addClass("fa-chess-knight")
+								mark.attr("title","Executive")
+							} else if (element.role == "M") {
+								mark.addClass("fa-chess-pawn")
+								mark.attr("title","Member")
+							}
+							div.append(mark)
+							div.append(sp)
+							$("#member_list").append(div)
 
+						});
+					})
+				})
+			</script>
 	</body>
 </html>
